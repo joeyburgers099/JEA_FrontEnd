@@ -12,21 +12,6 @@
                             <small>{{auto.license}}</small>
                         </div>
                     </b-list-group-item>
-                    <!---->
-                    <!--<b-list-group-item href="#" active class="flex-column align-items-start">-->
-                    <!--<div class="d-flex w-100 justify-content-between">-->
-                    <!--<h5 class="mb-1">List group item heading</h5>-->
-                    <!--<small>small tag first</small>-->
-                    <!--</div>-->
-
-                    <!--<p class="mb-1">-->
-                    <!--p tag middle-->
-                    <!--</p>-->
-
-                    <!--<small>small tag 2</small>-->
-                    <!--</b-list-group-item>-->
-
-
                 </b-list-group>
 
             </div>
@@ -78,7 +63,7 @@
 
     </div>
 
-    </div>
+    <!--</div>-->
 </template>
 <script>
     import axios from 'axios';
@@ -94,7 +79,7 @@
             }
         },
         mounted () {
-            axios.get(`http://192.168.25.110:8080/Registreren/Vehicle`, {
+            axios.get(`localhost:8080/JEA_Backend/resources/auto`, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }

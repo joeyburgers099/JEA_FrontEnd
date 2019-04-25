@@ -2,13 +2,15 @@
     <div>
         <form class="form-signin" method="post" @submit.prevent="dopost">
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" v-model="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-            <label for="inputPassword"  class="sr-only">Password</label>
-            <input type="password" v-model="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+            <label for="username" class="sr-only">Email address</label>
+            <input type="username" v-model="username" id="username" class="form-control" placeholder="Username" required=""
+                   autofocus="">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" v-model="password" id="inputPassword" class="form-control" placeholder="Password"
+                   required="">
+            <input type="text" v-model="fa2" id="input2fa" class="form-control" placeholder="2 Factor Key">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            <button class="btn btn-lg btn-primary btn-block" type="button">Registreren</button>
-            <!--<router-link v-bind:to="'register'"><button class="btn btn-lg btn-primary btn-block">Register</button> </router-link>-->
+            <router-link v-bind:to="'register'"><button class="btn btn-lg btn-primary btn-block">Register</button></router-link>
             <p class="mt-5 mb-3 text-muted">© 2019</p>
         </form>
     </div>
@@ -24,20 +26,22 @@
         name: 'app',
         data () {
             return {
-                email: '',
+                username: '',
                 password: '',
-                errors: []
+                errors: [],
+                fa2: ''
             }
         },
         methods: {
             dopost: function () {
-                axios.post(`http://localhost:8080/testing/resources/authentication`, qs.stringify({
-                    'username': this.email,
-                    'password': this.password
+                axios.post(`http://localhost:8080/JEA_Backend/resources/authentication`, qs.stringify({
+                    'username': this.username,
+                    'password': this.password,
+                    'factor2': this.fa2
                 }))
                     .then(response => {
                         localStorage.setItem('token', response.data);
-                        this.$router.push('/home');
+                        this.$router.push('/ShowCars');
                     })
                     .catch(function (error) {
                         if (error.response.status == 403) {
@@ -53,3 +57,4 @@
 <style>
     @import '../css/sign-in.css';
 </style>
+

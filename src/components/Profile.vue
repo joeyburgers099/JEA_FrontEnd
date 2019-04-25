@@ -1,31 +1,38 @@
 <template>
-    <div class="container">
-        <div class="header clearfix">
-            <nav>
-                <ul class="nav nav-pills float-right">
-                </ul>
-            </nav>
-            <h3 class="text-muted" style="float: none; text-align: center;">Profile informatie</h3>
-        </div>
+    <div>
 
-
-        <div class="form-group" style="text-align: left;">
-            <label>Voornaam:</label> <label style="float: right;">{{user.name}}</label>
-            <div>
-                <label>Achternaam:</label> <label style="float: right;">{{user.lastname}}</label>
+        <NavBar></NavBar>
+        <div class="container">
+            <div class="header clearfix">
+                <nav>
+                    <ul class="nav nav-pills float-right">
+                    </ul>
+                </nav>
+                <h3 class="text-muted" style="float: none; text-align: center;">{{$t('profileinfo')}}</h3>
             </div>
-            <div>
-                <label>BSN:</label> <label style="float: right;">{{user.bsn}}</label>
+
+
+            <div class="form-group" style="text-align: left;">
+                <label>{{ $t('id') }}:</label> <label style="float: right;">{{user.gebruikersid}}</label>
+                <div>
+                    <label>{{ $t('username') }}:</label> <label style="float: right;">{{user.username}}</label>
+                </div>
+                <div>
+                    <label>{{ $t('email') }}:</label> <label style="float: right;">{{user.email}}</label>
+                </div>
+                <div>
+                    <label>{{ $t('age') }}:</label> <label style="float: right;">{{user.age}}</label>
+                </div>
+                <div>
+                    <label>{{ $t('role') }}:</label> <label style="float: right;">{{user.role}}</label>
+                </div>
             </div>
-            <div>
-                <label>Email:</label> <label style="float: right;">{{user.email}}</label>
-            </div>
-        </div>
 
 
 
 
-    </div> <!-- /container -->
+        </div> <!-- /container -->
+    </div>
 </template>
 
 <script>
@@ -39,7 +46,7 @@
             }
         },
         mounted () {
-            axios.get(`http://192.168.25.110:8080/Registreren/User`, {
+            axios.get(`http://localhost:8080/JEA_Backend/resources/user`, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }

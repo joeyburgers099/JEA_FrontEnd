@@ -20,8 +20,7 @@ Vue.component('NavBar', NavBar);
 Vue.component('login', Login);
 Vue.component('showcars', showcars);
 Vue.component('profile', profile);
-Vue.component('register', register)
-
+Vue.component('register', register);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

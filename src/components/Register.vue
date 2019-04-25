@@ -46,7 +46,7 @@
         },
         methods: {
             dopost: function () {
-                axios.post(`localhost:8080/Registreren/authentication/register`, qs.stringify({
+                axios.post(`http://localhost:8080/JEA_Backend/resources/user`, qs.stringify({
                     'Username': this.username,
                     '': this.password,
                     'Email': this.email,
