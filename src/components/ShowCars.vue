@@ -58,7 +58,8 @@
 
 
             </div>
-
+                <router-link v-bind:to="'addcars'"><button class="btn btn-lg btn-primary btn-block">Plaats een advertentie</button></router-link>
+                <p class="mt-5 mb-3 text-muted">© 2019</p>
         </div>
 
     </div>
@@ -79,7 +80,7 @@
             }
         },
         mounted () {
-            axios.get(`localhost:8080/JEA_Backend/resources/auto`, {
+            axios.get(`http://localhost:8080/JEA_Backend/resources/auto`, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }

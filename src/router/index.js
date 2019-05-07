@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import showcars from '@/components/ShowCars'
 import register from '@/components/Register'
-import profile from '../components/Profile'
+import profile from '@/components/Profile'
+import addCars from '@/components/AddCars'
 
 Vue.use(Router)
 
@@ -15,6 +16,7 @@ export const router = new Router({
     { path: '/showcars', component: showcars},
     { path: '/register', component: register},
     { path: '/profile', component: profile},
+    { path: '/addcars', component: addCars},
 
     // otherwise redirect to home
     { path: '*', redirect: '/' }

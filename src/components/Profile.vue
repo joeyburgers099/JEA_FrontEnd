@@ -8,23 +8,21 @@
                     <ul class="nav nav-pills float-right">
                     </ul>
                 </nav>
-                <h3 class="text-muted" style="float: none; text-align: center;">{{$t('profileinfo')}}</h3>
+                <h3 class="text-muted" style="float: none; text-align: center;">Profiel info</h3>
             </div>
 
 
             <div class="form-group" style="text-align: left;">
-                <label>{{ $t('id') }}:</label> <label style="float: right;">{{user.gebruikersid}}</label>
+                <label>Username:</label> <label style="float: right;">{{user.username}}</label>
+
                 <div>
-                    <label>{{ $t('username') }}:</label> <label style="float: right;">{{user.username}}</label>
+                    <label>Email:</label> <label style="float: right;">{{user.email}}</label>
                 </div>
                 <div>
-                    <label>{{ $t('email') }}:</label> <label style="float: right;">{{user.email}}</label>
+                    <label>Age:</label> <label style="float: right;">{{user.age}}</label>
                 </div>
                 <div>
-                    <label>{{ $t('age') }}:</label> <label style="float: right;">{{user.age}}</label>
-                </div>
-                <div>
-                    <label>{{ $t('role') }}:</label> <label style="float: right;">{{user.role}}</label>
+                    <label>Role:</label> <label style="float: right;">{{user.role}}</label>
                 </div>
             </div>
 
