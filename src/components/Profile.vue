@@ -8,25 +8,20 @@
                     <ul class="nav nav-pills float-right">
                     </ul>
                 </nav>
-                <h3 class="text-muted" style="float: none; text-align: center;">Profiel info</h3>
+                <h3 class="text-muted" style="float: none; text-align: center;">Profielinformatie</h3>
             </div>
 
 
             <div class="form-group" style="text-align: left;">
-                <label>Username:</label> <label style="float: right;">{{user.username}}</label>
-
+                <label>Gebruikersnaam:</label> <label style="float: right;">{{user.username}}</label>
                 <div>
                     <label>Email:</label> <label style="float: right;">{{user.email}}</label>
                 </div>
                 <div>
-                    <label>Age:</label> <label style="float: right;">{{user.age}}</label>
+                    <label>Leeftijd:</label> <label style="float: right;">{{user.age}}</label>
                 </div>
-                <div>
-                    <label>Role:</label> <label style="float: right;">{{user.role}}</label>
-                </div>
+
             </div>
-
-
 
 
         </div> <!-- /container -->
@@ -37,13 +32,13 @@
     import axios from 'axios';
     export default {
         name: 'app',
-        data () {
+        data() {
             return {
                 user: null,
                 errors: []
             }
         },
-        mounted () {
+        mounted() {
             axios.get(`http://localhost:8080/JEA_Backend/resources/user`, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')

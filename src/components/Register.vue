@@ -13,7 +13,7 @@
 
                 <!-- Login Form -->
                 <form class="" method="post" @submit.prevent="dopost">
-                    <input type="text" id="Username" class="fadeIn second" name="login" v-model="Username" placeholder="Gebruikersnaam">
+                    <input type="text" id="Username" class="fadeIn second" name="login" v-model="username" placeholder="Gebruikersnaam">
                     <input type="password" id="password" class="fadeIn third" name="login"  v-model="password" placeholder="Wachtwoord">
                     <input type="text" id="email" class="fadeIn second" name="login" v-model="email" placeholder="Email">
                     <input type="text" id="age" class="fadeIn second" name="login" v-model="age" placeholder="Leeftijd">
