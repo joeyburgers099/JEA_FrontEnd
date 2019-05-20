@@ -14,7 +14,7 @@
                 <!-- Login Form -->
                 <form class="" method="post" @submit.prevent="dopost">
                     <input type="text" id="Username" class="fadeIn second" name="login" v-model="Username" placeholder="Gebruikersnaam">
-                    <input type="password" id="password" class="fadeIn third" name="login"  v-model="password" placeholder="Wachtwoord">
+                    <input type="password" id="password" class="fadeIn third" name="login"  v-model="Password" placeholder="Wachtwoord">
                     <input type="text" id="email" class="fadeIn second" name="login" v-model="email" placeholder="Email">
                     <input type="text" id="age" class="fadeIn second" name="login" v-model="age" placeholder="Leeftijd">
                     <input type="submit" class="fadeIn fourth" value="Maak Account">
@@ -37,28 +37,28 @@
         name: 'app',
         data () {
             return {
-                username: '',
-                password: '',
+                Username: '',
+                Password: '',
                 email: '',
                 age: '',
                 errors: []
             }
         },
         methods: {
+
+
             dopost: function () {
-                axios.post(`http://localhost:8080/JEA_Backend/resources/user`, qs.stringify({
-                    'Username': this.username,
-                    '': this.password,
-                    'Email': this.email,
-                    'Age' : this.age
-                }))
+                alert(this.Username);
+                alert(this.Password);
+                axios.post(`http://localhost:8080/GlassfishWithPayara/user`, {username: this.Username, password: this.Password, email: this.email, age: this.age})
                     .then(response => {
-                        alert(response)
+                        alert(response.data)
                         localStorage.setItem('token', response.data)
                     })
                     .catch(e => {
                         this.errors.push(e)
                     })
+
             }
         }
     }

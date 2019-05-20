@@ -8,30 +8,27 @@
                     <ul class="nav nav-pills float-right">
                     </ul>
                 </nav>
-                <h3 class="text-muted" style="float: none; text-align: center;">{{$t('profileinfo')}}</h3>
+                <h3 class="text-muted" style="float: none; text-align: center;">Profielinformatie</h3>
             </div>
 
 
             <div class="form-group" style="text-align: left;">
-                <label>{{ $t('id') }}:</label> <label style="float: right;">{{user.gebruikersid}}</label>
-                <div>
-                    <label>{{ $t('username') }}:</label> <label style="float: right;">{{user.username}}</label>
-                </div>
-                <div>
-                    <label>{{ $t('email') }}:</label> <label style="float: right;">{{user.email}}</label>
-                </div>
-                <div>
-                    <label>{{ $t('age') }}:</label> <label style="float: right;">{{user.age}}</label>
-                </div>
-                <div>
-                    <label>{{ $t('role') }}:</label> <label style="float: right;">{{user.role}}</label>
-                </div>
-            </div>
+                <label>Gebruikersid:</label> <label style="float: right;">{{user.gebruikersiD}}</label>
+          <div>
+            <label>username:</label> <label style="float: right;">{{user.userName}}</label>
+          </div>
+          <div>
+            <label>email:</label> <label style="float: right;">{{user.email}}</label>
+          </div>
+          <div>
+            <label>age:</label> <label style="float: right;">{{user.age}}</label>
+          </div>
+          <div>
+            <label>role:</label> <label style="float: right;">{{user.role}}</label>
+          </div>
+        </div>
 
-
-
-
-        </div> <!-- /container -->
+    </div> <!-- /container -->
     </div>
 </template>
 
@@ -41,18 +38,25 @@
         name: 'app',
         data () {
             return {
-                user: null,
+                user: {
+                  gebruikersiD: -1,
+                  userName: '',
+                  email: '',
+                  age: '',
+                  role: ''
+                },
                 errors: []
             }
         },
         mounted () {
-            axios.get(`http://localhost:8080/JEA_Backend/resources/user`, {
+            axios.get(`http://localhost:8080/GlassfishWithPayara/user`, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
             })
                 .then(response => {
-                    this.user = response.data;
+
+                  this.user = response.data[0];
                 })
                 .catch(function (error) {
                     alert("No rights");

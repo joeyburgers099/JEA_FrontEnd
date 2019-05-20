@@ -8,20 +8,20 @@
                 <b-list-group style="margin: 5%">
                     <b-list-group-item href="#" active class="flex-column align-items-start" v-for="auto in autos" :key="auto.vehicleID" style="margin-bottom: 10px" v-on:click="loadauto(auto)">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">{{auto.brand}} {{auto.model}}</h5>
-                            <small>{{auto.license}}</small>
+                            <h5 class="mb-1">{{auto.merk}} {{auto.model}}</h5>
+                            <small>{{auto.kenteken}}</small>
                         </div>
                     </b-list-group-item>
                 </b-list-group>
 
             </div>
             <div class="col-md-8"  v-if="model !== null">
-                <h2>Select auto: {{model.license}}<br></h2>
+                <h2>Geselecteerde auto: {{model.kenteken}}<br></h2>
 
                 <div class="form-group" style=" width: 50%; alignment: center; text-align: left"   >
                     <div >
-                        <label >Merk:</label>
-                        <label v-if="model.brand !== null" style="float: right;">{{model.brand}}</label>
+                        <label>Merk:</label>
+                        <label v-if="model.merk !== null" style="float: right;">{{model.merk}}</label>
                         <label v-else style="float: right;">Unknown</label>
                     </div>
                     <div>
@@ -31,31 +31,28 @@
                     </div>
                     <div>
                         <label>Kenteken:</label>
-                        <label v-if="model.license !== null" style="float: right;">{{model.license}}</label>
+                        <label v-if="model.kenteken !== null" style="float: right;">{{model.kenteken}}</label>
                         <label v-else style="float: right;">Unknown</label>
                     </div>
                     <div>
-                        <label>Gewicht:</label>
-                        <label v-if="model.weight !== null" style="float: right;">{{model.weight}}</label>
+                        <label>Vraagprijs:</label>
+                        <label v-if="model.vraagprijs !== null" style="float: right;">{{model.prijs}}</label>
                         <label v-else style="float: right;">Unknown</label>
                     </div>
                     <div>
-                        <label>wielen:</label>
-                        <label v-if="model.wheels !== null" style="float: right;">{{model.wheels}}</label>
-                        <label v-else style="float: right;">Unknown</label>
-                    </div>
-                    <div>
-                        <label>Gestolen:</label>
-                        <label v-if="model.stolen !== null" style="float: right;">{{model.stolen}}</label>
+                        <label>Huidige bod:</label>
+                        <label v-if="model.kenteken !== null" style="float: right;">{{model.huidigBod}}</label>
                         <label v-else style="float: right;">Unknown</label>
                     </div>
 
-
+                    <form class="" method="post" @submit.prevent="dopost">
+                        <input type="text" id="Bod" class="fadeIn second" name="bod" v-model="huidigBod" placeholder="Bod">
+                        <input type="submit" class="fadeIn fourth" value="Plaats bod">
+                    </form>
+                    <!--<label for="bod" class="sr-only">Bod</label>-->
+                    <!--<input type="text" id="bod" class="fadeIn second" name="bod" v-model="huidigBod" placeholder="Email">-->
+                    <!--<button class="btn btn-lg btn-primary btn-block" type="submit">Plaats bod</button>-->
                 </div>
-
-
-
-
 
             </div>
 
@@ -65,6 +62,7 @@
 
     <!--</div>-->
 </template>
+
 <script>
     import axios from 'axios';
     export default {
@@ -75,17 +73,19 @@
                 errors: [],
                 label: '',
                 clicked: false,
-                model: null
+                model: null,
+
             }
         },
         mounted () {
-            axios.get(`localhost:8080/JEA_Backend/resources/auto`, {
+            axios.get(`http://localhost:8080/GlassfishWithPayara/auto`, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
             })
                 .then(response => {
                     this.autos = response.data;
+
                 })
                 .catch(function (error) {
                     alert("No rights");

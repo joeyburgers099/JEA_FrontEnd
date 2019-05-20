@@ -12,12 +12,18 @@ export default {
 </script>
 
 <style>
+  body {
+    align-items: unset !important;
+   -webkit-box-align: unset!important;
+    padding: 0 !important;
+    justify-content:
+  }
 #app {
+  width: 100%;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
