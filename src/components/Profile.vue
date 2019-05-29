@@ -39,7 +39,7 @@
         data () {
             return {
                 user: {
-                  gebruikersiD: -1,
+                  gebruikersiD: 0,
                   userName: '',
                   email: '',
                   age: '',
@@ -49,14 +49,12 @@
             }
         },
         mounted () {
-            axios.get(`http://localhost:8080/GlassfishWithPayara/user`, {
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('token')
-                }
+            axios.get(`http://localhost:8080/GlassfishWithPayara/user/getSelf`, {
+              headers: {token: localStorage.getItem('token')}
             })
                 .then(response => {
 
-                  this.user = response.data[0];
+                  this.user = response.data;
                 })
                 .catch(function (error) {
                     alert("No rights");

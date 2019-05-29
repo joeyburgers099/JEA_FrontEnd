@@ -41,17 +41,42 @@
                     </div>
                     <div>
                         <label>Huidige bod:</label>
-                        <label v-if="model.kenteken !== null" style="float: right;">{{model.huidigBod}}</label>
+                        <label v-if="model.huidigBod !== null" style="float: right;">{{model.huidigBod}}</label>
                         <label v-else style="float: right;">Unknown</label>
                     </div>
 
-                    <form class="" method="post" @submit.prevent="dopost">
-                        <input type="text" id="Bod" class="fadeIn second" name="bod" v-model="huidigBod" placeholder="Bod">
+                    <form class="" method="post" @submit.prevent="plaatsbod">
+                        <input type="text" id="Bod" class="fadeIn second" name="bod" v-if="nieuweBod !== null" placeholder="Bod">
                         <input type="submit" class="fadeIn fourth" value="Plaats bod">
+
                     </form>
-                    <!--<label for="bod" class="sr-only">Bod</label>-->
-                    <!--<input type="text" id="bod" class="fadeIn second" name="bod" v-model="huidigBod" placeholder="Email">-->
-                    <!--<button class="btn btn-lg btn-primary btn-block" type="submit">Plaats bod</button>-->
+                    <input type="submit" class="fadeIn fourth" value="Join chat">
+                      <template>
+                        <div class="card mt-3">
+                          <div class="card-body">
+                            <div class="card-title">
+                              <h3>Chat Group</h3>
+                              <hr>
+                            </div>
+                            <div class="card-body">
+                              <div class="messages" v-for="(msg, index) in messages" :key="index">
+                                <p><span class="font-weight-bold">{{ msg.message.from}}: </span>{{ msg.message.message }}</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-footer">
+                            <form @submit.prevent="sendMessage">
+                              <div class="gorm-group pb-3">
+
+                                <label for="message">Message:</label>
+                                <input type="text" v-model="message" class="form-control">
+                              </div>
+                              <button type="submit" class="btn btn-success">Send</button>
+                            </form>
+                          </div>
+                        </div>
+                      </template>
+
                 </div>
 
             </div>
@@ -65,6 +90,7 @@
 
 <script>
     import axios from 'axios';
+    const qs = require('qs');
     export default {
         name: 'app',
         data () {
@@ -74,8 +100,36 @@
                 label: '',
                 clicked: false,
                 model: null,
-
+                huidigbod: '',
+                nieuweBod: '',
+                wsUri: "ws://localhost:8080/GlassfishWithPayara/chat",
+                websocket: null,
+                message: "",
+                messages: "",
+                chatOpened: false,
+                connected: false
             }
+        },
+        computed: {
+          user() {
+            // user object
+            return this.$store.getters.user;
+          },
+          connectionStatus() {
+
+            if (this.connected) return "success";
+
+            return "error";
+          }
+        },
+        watch: {
+          chatOpened(val) {
+            if (val) {
+              if (!this.connected) {
+                this.connect();
+              }
+            }
+          }
         },
         mounted () {
             axios.get(`http://localhost:8080/GlassfishWithPayara/auto`, {
@@ -95,6 +149,45 @@
             loadauto:function(auto){
                 this.model = auto;
                 this.clicked = true;
+            },
+            plaatsbod: function () {
+              axios.put(`http://localhost:8080/GlassfishWithPayara/auto/nieuwbod`, {
+                'id' : this.model.vehicleID,
+                'nieuweBod': this.nieuweBod
+
+              })
+                .then(response => {
+                  localStorage.setItem('token', response.data);
+                  alert("Bod is succesvol geplaats!")
+                  this.$router.push('/ShowCars');
+                })
+                .catch(function (error) {
+                  if (error.response.status == 403) {
+                    alert("Incorrect credentials");
+                  }
+              })
+            },
+            join() {
+              this.websocket.send(localStorage.getItem('name') + " has joined the chat");
+            },
+            sendMessage() {
+              this.websocket.send(localStorage.getItem('name') + " : " + this.message);
+              this.message = "";
+            },
+            connect() {
+              var self = this;
+              self.websocket = new WebSocket(self.wsUri);
+
+              this.websocket.onopen = function() {
+                self.connected = true;
+                self.join();
+              };
+              this.websocket.onmessage = function(evt) {
+                self.messages += `${evt.data}\n`;
+              };
+              this.websocket.onerror = function() {
+                self.connected = false;
+              };
             }
         }
     }

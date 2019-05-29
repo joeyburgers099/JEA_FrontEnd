@@ -41,6 +41,7 @@
                 }))
                     .then(response => {
                         localStorage.setItem('token', response.data);
+                        localStorage.setItem('name', this.username);
                         this.$router.push('/ShowCars');
                     })
                     .catch(function (error) {

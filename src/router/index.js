@@ -5,6 +5,7 @@ import showcars from '@/components/ShowCars'
 import register from '@/components/Register'
 import profile from '../components/Profile'
 import factor2 from '@/components/twofactorpage.vue'
+import chat from '@/components/chat.vue'
 
 Vue.use(Router)
 
@@ -17,6 +18,7 @@ export const router = new Router({
     { path: '/register', component: register},
     { path: '/profile', component: profile},
     { path: '/2factor', component: factor2 },
+    { path: '/chat', component: chat },
 
     // otherwise redirect to home
     { path: '*', redirect: '/' }

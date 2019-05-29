@@ -13,13 +13,14 @@
 
                 <!-- Login Form -->
                 <form class="" method="post" @submit.prevent="dopost">
-                    <input type="text" id="Username" class="fadeIn second" name="login" v-model="Username" placeholder="Gebruikersnaam">
-                    <input type="password" id="password" class="fadeIn third" name="login"  v-model="Password" placeholder="Wachtwoord">
+                    <input type="text" id="Username" class="fadeIn second" name="login" v-model="UserName" placeholder="Gebruikersnaam">
+                    <input type="password" id="password" class="fadeIn third" name="login"  v-model="PassWd" placeholder="Wachtwoord">
                     <input type="text" id="email" class="fadeIn second" name="login" v-model="email" placeholder="Email">
                     <input type="text" id="age" class="fadeIn second" name="login" v-model="age" placeholder="Leeftijd">
                     <input type="submit" class="fadeIn fourth" value="Maak Account">
                 </form>
 
+                <router-link v-bind:to="'login'"><button class="btn btn-lg btn-primary btn-block">Terug naar de login pagina</button></router-link>
                 <!-- Remind Passowrd -->
 
             </div>
@@ -37,8 +38,8 @@
         name: 'app',
         data () {
             return {
-                Username: '',
-                Password: '',
+                UserName: '',
+                PassWd: '',
                 email: '',
                 age: '',
                 errors: []
@@ -48,11 +49,11 @@
 
 
             dopost: function () {
-                alert(this.Username);
-                alert(this.Password);
-                axios.post(`http://localhost:8080/GlassfishWithPayara/user`, {username: this.Username, password: this.Password, email: this.email, age: this.age})
+                alert(this.UserName);
+                alert(this.PassWd);
+                axios.post(`http://localhost:8080/GlassfishWithPayara/user`, {userName: this.UserName, passWd: this.PassWd, email: this.email, age: this.age})
                     .then(response => {
-                        alert(response.data)
+                        this.$router.push('/login ');
                         localStorage.setItem('token', response.data)
                     })
                     .catch(e => {

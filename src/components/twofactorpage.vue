@@ -1,25 +1,35 @@
 <template>
   <div>
-    <navbar></navbar>
+    <NavBar></NavBar>
     <h1>2 Factor</h1>
     <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" v-on:click="couponClicked">Klik
       hier om een nieuwe 2 Factor code te genereren</a>
     <div v-if="generated">
-      <label>Vul de volgende code in de Google Authenticator App:</label>
+      <label>Voer de volgende code handmatig of scan de QR-code in de Google Authenticator App:</label>
       <h4>{{authkey}}</h4>
+      <qr-code :text=this.authkey></qr-code>
     </div>
   </div>
 </template>
 
 <script>
   import axios from 'axios';
+  import VueQRCodeComponent from 'vue-qrcode-component'
+
   const qs = require('qs');
+
+
+  var QRCode = require('qrcode');
+  var qrimage;
+
+
   export default {
     name: 'app',
     data() {
       return {
         authkey: '',
-        generated: false
+        generated: false,
+        qrimage
       }
     },
     methods: {
@@ -34,6 +44,13 @@
             if (response.status == 200) {
               this.generated = true;
               this.authkey = response.data;
+
+              console.log(this.authkey);
+
+              QRCode.toDataURL(this.authkey, function(err, image_data) {
+                //console.log(image_data); // A data URI for the QR code image
+                qrimage = image_data
+              });
             }
           })
           .catch(function (error) {
