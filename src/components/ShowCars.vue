@@ -50,7 +50,6 @@
                         <input type="submit" class="fadeIn fourth" value="Plaats bod">
 
                     </form>
-                    <input type="submit" class="fadeIn fourth" value="Join chat">
                       <template>
                         <div class="card mt-3">
                           <div class="card-body">
@@ -60,12 +59,12 @@
                             </div>
                             <div class="card-body">
                               <div class="messages" v-for="(msg, index) in messages" :key="index">
-                                <p><span class="font-weight-bold">{{ msg.message.from}}: </span>{{ msg.message.message }}</p>
+                                <p><span class="font-weight-bold">{{ msg}} </span></p>
                               </div>
                             </div>
                           </div>
                           <div class="card-footer">
-                            <form @submit.prevent="sendMessage">
+                            <form @submit.prevent="sendMessage()">
                               <div class="gorm-group pb-3">
 
                                 <label for="message">Message:</label>
@@ -105,16 +104,13 @@
                 wsUri: "ws://localhost:8080/GlassfishWithPayara/chat",
                 websocket: null,
                 message: "",
-                messages: "",
+                messages: [],
                 chatOpened: false,
                 connected: false
             }
         },
         computed: {
-          user() {
-            // user object
-            return this.$store.getters.user;
-          },
+
           connectionStatus() {
 
             if (this.connected) return "success";
@@ -122,15 +118,15 @@
             return "error";
           }
         },
-        watch: {
-          chatOpened(val) {
-            if (val) {
-              if (!this.connected) {
-                this.connect();
-              }
-            }
-          }
-        },
+//        watch: {
+//          chatOpened(val) {
+//            if (val) {
+//              if (!this.connected) {
+//                this.connect();
+//              }
+//            }
+//          }
+//        },
         mounted () {
             axios.get(`http://localhost:8080/GlassfishWithPayara/auto`, {
                 headers: {
@@ -149,6 +145,29 @@
             loadauto:function(auto){
                 this.model = auto;
                 this.clicked = true;
+                if(this.websocket !== null) {
+                  this.websocket.close();
+                  this.messages = [];
+                }
+                {
+                  var self = this;
+                  self.websocket = new WebSocket(self.wsUri + "/" + this.model.id);
+
+                  this.websocket.onopen = function() {
+                    self.connected = true;
+                    self.join();
+                  };
+                  this.websocket.onmessage = ({data}) => {
+                    console.log(data);
+                    this.messages.push(data);
+                  };
+//                  this.websocket.onmessage = function(evt) {
+//                    self.messages += `${evt.data}\n`;
+//                  };
+                  this.websocket.onerror = function() {
+                    self.connected = false;
+                  };
+                }
             },
             plaatsbod: function () {
               axios.put(`http://localhost:8080/GlassfishWithPayara/auto/nieuwbod`, {
@@ -172,23 +191,10 @@
             },
             sendMessage() {
               this.websocket.send(localStorage.getItem('name') + " : " + this.message);
+              this.websocket.se
               this.message = "";
-            },
-            connect() {
-              var self = this;
-              self.websocket = new WebSocket(self.wsUri);
-
-              this.websocket.onopen = function() {
-                self.connected = true;
-                self.join();
-              };
-              this.websocket.onmessage = function(evt) {
-                self.messages += `${evt.data}\n`;
-              };
-              this.websocket.onerror = function() {
-                self.connected = false;
-              };
             }
+
         }
     }
 </script>
