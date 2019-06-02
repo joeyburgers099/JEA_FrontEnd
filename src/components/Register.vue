@@ -13,15 +13,16 @@
 
                 <!-- Login Form -->
                 <form class="" method="post" @submit.prevent="dopost">
+
                     <input type="text" id="Username" class="fadeIn second" name="login" v-model="UserName" placeholder="Gebruikersnaam">
                     <input type="password" id="password" class="fadeIn third" name="login"  v-model="PassWd" placeholder="Wachtwoord">
                     <input type="text" id="email" class="fadeIn second" name="login" v-model="email" placeholder="Email">
                     <input type="text" id="age" class="fadeIn second" name="login" v-model="age" placeholder="Leeftijd">
                     <input type="submit" class="fadeIn fourth" value="Maak Account">
+                    <router-link v-bind:to="'login'"><button class="btn btn-lg btn-primary btn-block">Terug naar de login pagina</button></router-link>
                 </form>
 
                 <router-link v-bind:to="'login'"><button class="btn btn-lg btn-primary btn-block">Terug naar de login pagina</button></router-link>
-                <!-- Remind Passowrd -->
 
             </div>
         </div>

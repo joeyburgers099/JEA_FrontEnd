@@ -13,6 +13,7 @@
 
 
             <div class="form-group" style="text-align: left;">
+<<<<<<< HEAD
                 <label>Gebruikersid:</label> <label style="float: right;">{{user.gebruikersiD}}</label>
           <div>
             <label>username:</label> <label style="float: right;">{{user.userName}}</label>
@@ -27,6 +28,17 @@
             <label>role:</label> <label style="float: right;">{{user.role}}</label>
           </div>
         </div>
+=======
+                <label>Gebruikersnaam:</label> <label style="float: right;">{{user.username}}</label>
+                <div>
+                    <label>Email:</label> <label style="float: right;">{{user.email}}</label>
+                </div>
+                <div>
+                    <label>Leeftijd:</label> <label style="float: right;">{{user.age}}</label>
+                </div>
+
+            </div>
+>>>>>>> 92b6ee50049abd1fc09e1c87c2c405edf15f2cb3
 
     </div> <!-- /container -->
     </div>
@@ -36,7 +48,7 @@
     import axios from 'axios';
     export default {
         name: 'app',
-        data () {
+        data() {
             return {
                 user: {
                   gebruikersiD: 0,
@@ -48,9 +60,17 @@
                 errors: []
             }
         },
+<<<<<<< HEAD
         mounted () {
             axios.get(`http://localhost:8080/GlassfishWithPayara/user/getSelf`, {
               headers: {token: localStorage.getItem('token')}
+=======
+        mounted() {
+            axios.get(`http://localhost:8080/JEA_Backend/resources/user`, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+>>>>>>> 92b6ee50049abd1fc09e1c87c2c405edf15f2cb3
             })
                 .then(response => {
 
