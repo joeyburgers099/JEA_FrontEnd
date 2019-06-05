@@ -7,16 +7,9 @@
 
                 </b-navbar-nav>
                 <b-navbar-nav class="ml-auto">
-                    <b-nav-item-dropdown text="Gebruiker" right>
-                        <b-dropdown-item href="#" v-bind:to="'profile'">Profile</b-dropdown-item>
-                        <b-dropdown-item href="#" v-bind:to="'2factor'">2 Factor Setup</b-dropdown-item>
-
-
-                </b-navbar-nav>
-                <b-navbar-nav class="ml-auto">
                     <b-nav-item-dropdown text="Settings" right>
                         <b-dropdown-item href="#" v-bind:to="'profile'">Profile</b-dropdown-item>
-
+                        <b-dropdown-item href="#" v-bind:to="'2factor'">2 Factor Setup</b-dropdown-item>
                         <b-dropdown-item href="#" v-on:click="Logout">Uitloggen</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>

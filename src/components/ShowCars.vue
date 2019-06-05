@@ -118,15 +118,6 @@
         return "error";
       }
     },
-//        watch: {
-//          chatOpened(val) {
-//            if (val) {
-//              if (!this.connected) {
-//                this.connect();
-//              }
-//            }
-//          }
-//        },
     mounted () {
       axios.get(`http://localhost:8080/GlassfishWithPayara/auto`, {
         headers: {

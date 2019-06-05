@@ -7,7 +7,7 @@
     <div v-if="generated">
       <label>Voer de volgende code handmatig of scan de QR-code in de Google Authenticator App:</label>
       <h4>{{authkey}}</h4>
-      <qr-code :text=this.authkey></qr-code>
+
     </div>
   </div>
 </template>
@@ -18,18 +18,13 @@
 
   const qs = require('qs');
 
-
-  var QRCode = require('qrcode');
-  var qrimage;
-
-
   export default {
     name: 'app',
     data() {
       return {
         authkey: '',
         generated: false,
-        qrimage
+
       }
     },
     methods: {
@@ -44,13 +39,6 @@
             if (response.status == 200) {
               this.generated = true;
               this.authkey = response.data;
-
-              console.log(this.authkey);
-
-              QRCode.toDataURL(this.authkey, function(err, image_data) {
-                //console.log(image_data); // A data URI for the QR code image
-                qrimage = image_data
-              });
             }
           })
           .catch(function (error) {
